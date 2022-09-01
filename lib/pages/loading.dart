@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:world_time/services/world_time.dart ';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 class Loading extends StatefulWidget {
   const Loading({Key? key}) : super(key: key);
@@ -20,7 +21,8 @@ try {
   Navigator.pushReplacementNamed(context, '/home', arguments: {
     'location': india.location,
     'flag': india.flag,
-    'time': india.time
+    'time': india.time,
+    'isDaytime' : india.isDaytime,
   });
 }
 
@@ -39,11 +41,14 @@ catch(e){
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Padding(
-        padding: EdgeInsets.all(60.0),
-        child: Text(time),
-      )
+    return  Scaffold(
+      backgroundColor: Colors.blue[800],
+      body:  const Center(
+        child: SpinKitDoubleBounce(
+          color: Colors.white,
+          size: 90.0,
+        ),
+      ),
     );
   }
 }

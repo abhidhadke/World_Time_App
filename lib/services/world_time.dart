@@ -10,11 +10,13 @@ class WorldTime{
   late String time; //the time in that location
   late String flag; //url to flag asset icon
   late String url1; // part of url to update
+  late bool isDaytime; //true or false
 
 
 
 
   Future<dynamic> getTime() async {
+    Future.delayed(const Duration(seconds: 15), () {});
     try{
   var url = Uri.parse( "http://worldtimeapi.org/api/timezone/$url1" );
   var response = await http.get(url);
@@ -27,6 +29,7 @@ class WorldTime{
   DateTime dtime = DateTime.parse(datetime);
   dtime = dtime.add(Duration(hours: int.parse(offset1), minutes: int.parse(offset2)));
 
+  isDaytime = dtime.hour > 6 && dtime.hour < 20;
   time = DateFormat.jm().format(dtime);
 
     }
@@ -34,6 +37,8 @@ class WorldTime{
       print('Caught error $e');
       time = 'Could not get time';
   }
+
+
   }
   WorldTime({required this.location, required this.flag, required this.url1});
 }
